@@ -14,17 +14,11 @@ import Footer from './my-web/Footer';
 function App() {
   return (
     <div>
-      <p>Learn React</p>
       <Header></Header>
       <Section></Section>
       <EBook_introduce></EBook_introduce>
       <NewBook></NewBook>
-      <Chapter
-        title ="1. Chapter one"
-        sectionFirst="a. First Section Goes Here."
-        sectionSecond="b. Second Section Goes Here."
-        sectionThird="c. Third Section Goes Here."
-      ></Chapter>
+      <Chapter></Chapter>
       <GetBook></GetBook>
       <SellBook></SellBook>
       <MadeEbook></MadeEbook>

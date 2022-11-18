@@ -1,41 +1,28 @@
-import React from 'react';
-import './Chapter.css';
+import React from "react";
+import ChapterList from "./ChapterList";
+import "./Chapter.css";
 
-const Chapter = (props) => {
+const Chapter = () => {
+    const arr = ["1. Chapter One", "2. Chapter Two", "3. Chapter Three"];
     return (
         <div className="chapter py-5">
             <div className="container px-5 ">
                 <div className="row">
-                    <div className="col-md-4 col-xs-12">
-                        <h4 className="text-dark">{props.title}</h4>
-                        <ul className='text-secondary'>
-                            <li>{props.sectionFirst}</li>
-                            <li>{props.sectionSecond}</li>
-                            <li>{props.sectionThird}</li>
-                        </ul>
-                    </div>
-                    <div className="col-md-4 col-xs-12">
-                        <h4 className="text-dark">1. Chapter Two</h4>
-                        <ul className='text-secondary'>
-                            <li>{props.sectionFirst}</li>
-                            <li>{props.sectionSecond}</li>
-                            <li>{props.sectionThird}</li>
-                        </ul>
-                    </div>
-                    <div className="col-md-4 col-xs-12">
-                        <h4 className="text-dark">1. Chapter Three</h4>
-                        <ul className='text-secondary'>
-                            <li>{props.sectionFirst}</li>
-                            <li>{props.sectionSecond}</li>
-                            <li>{props.sectionThird}</li>
-                        </ul>
-                    </div>
+                    {arr.map((value, index) => {
+                        return (
+                            <ChapterList
+                                key={index}
+                                title={value}
+                                sectionFirst="a. First Section Goes Here."
+                                sectionSecond="b. Second Section Goes Here."
+                                sectionThird="c. Third Section Goes Here."
+                            ></ChapterList>
+                        );
+                    })}
                 </div>
             </div>
         </div>
-        
     );
 };
-
 
 export default Chapter;
