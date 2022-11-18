@@ -1,0 +1,5 @@
+.section {
+    background-image: linear-gradient(rgba(0,0,0, 0.6), rgba(0,0,0, 0.6)),url(https://builder.pixfort.com/items/1/images/ebook/intro-bg-ebook.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+  }

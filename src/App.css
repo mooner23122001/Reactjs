@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+}
+body {
+  font-family: 'Open Sans',sans-serif !important;
+}
+h1 {
+  font-size: 48px !important;
+  line-height: 77px !important;
+}
+h2 {
+  font-size: 36px !important;
+  line-height: 58px !important;
+}
+.big-text {
+  font-size: 16px;
+  line-height: 26px;
+}
+.big-text-20 {
+    font-size: 20px;
+    line-height: 32px;
+}
+.icon-contact {
+  font-size: 26px;
+}
+.icon-contact .fa {
+  padding-right: 8px;
+}
