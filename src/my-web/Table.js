@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-// import MenuTable from "./MenuTable";
-// import UserList from "./UserList";
+import { Modal, Button, Form } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 let arr = [
     {
         id: 1,
@@ -625,13 +625,10 @@ let arr = [
     },
 ];
 const Table = () => {
-    function fix(e) { }
-    function deleteUser(e) { }
     const [user, setUser] = useState(arr);
     const [data, setData] = useState({ firstName: "", lastName: "", Age: null });
     const handleChange = (event) => {
-        setData({ ...data, [event.target.name]: event.target.value});
-        console.log([event.target.id])
+        setData({ ...data, [event.target.name]: event.target.value });
     };
     let html = user.map((val, index) => {
         return (
@@ -639,132 +636,104 @@ const Table = () => {
                 <th scope="row">{index + 1}</th>
                 <td>{val.firstName}</td>
                 <td>
-                    <button className="border-0" onClick={() => fix(val.id)}>
+                    <Button className="border-0" onClick={() => handleEdit(val.id)}>
                         chỉnh sửa
-                    </button>
+                    </Button>
                 </td>
                 <td>
-                    <button className="border-0" onClick={() => deleteUser(val.id)}>
+                    <Button className="border-0" onClick={() => deleteUser(val.id)}>
                         x
-                    </button>
+                    </Button>
                 </td>
             </tr>
         );
     });
     function submitForm(e) {
         e.preventDefault();
-        // let modal = document.getElementById("Add-user-modal");
         setUser([data, ...user]);
-        console.log(user)
+        setShow(false)
+    }
+    function deleteUser(e) {
+        user.splice(e-1, 1);
+        setUser([...user]);
+    }
+    const [show, setShow] = useState(false)
+    const HandleClose = () => {
+        setShow(false)
+    }
+    const handleEdit = (e) => {
+        setShow(true);
+        setData({firstName:user[e-1].firstName , lastName:user[e-1].lastName, Age:user[e-1].age})
+        console.log(user[e-1])
+    }
+    const handleAdd = () => {
+        setShow(true);
     }
     return (
         <div>
             <div>
                 <div className="input-group my-3">
-                    <div className="form-outline">
-                        <input
-                            id="search-input"
-                            type="search"
-                            className="form-control"
-                            placeholder="Search"
-                        />
-                    </div>
-                    <button
-                        id="search-button"
-                        type="button"
-                        className="btn btn-primary mr-auto"
-                    >
-                        <i className="fa fa-search"></i>
-                    </button>
-                    <button
-                        type="button"
-                        id="modal-add"
-                        className="btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#Add-user-modal"
-                    >
-                        Add user
-                    </button>
+                    <Button variant="primary" onClick={handleAdd}>
+                        Add User
+                    </Button>
                 </div>
-                <div className="modal" id="Add-user-modal">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <form role="form" className="form-add-user">
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">
-                                        Add a user
-                                    </h5>
-                                    <button
-                                        type="button"
-                                        className="close"
-                                        data-dismiss="modal"
-                                        aria-label="Close"
-                                    >
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div className="modal-body">
-                                    <div className="row py-3">
-                                        <div className="col star">
-                                            <input
-                                                type="text"
-                                                id="firstName"
-                                                name="firstName"
-                                                className="form-control"
-                                                placeholder="Enter your first name"
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            type="text"
-                                            id="lastName"
-                                            name="lastName"
-                                            className="form-control"
-                                            placeholder="Enter your last name"
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            type="number"
-                                            name="Age"
-                                            className="form-control"
-                                            id="Age"
-                                            placeholder="Your Age"
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <button
-                                        type="button"
-                                        className="btn btn-secondary"
-                                        data-dismiss="modal"
-                                    >
-                                        Close
-                                    </button>
-                                    <input type="hidden" id="action" value="Add" />
-                                    <input type="hidden" id="check-id" value="" />
-                                    <a href="">
-                                        <button
-                                            className="btn btn-primary"
-                                            id="sign-up"
-                                            onClick={submitForm}
-                                        >
-                                            Add
-                                        </button>
-                                    </a>
-                                </div>
-                            </form>
+                <Modal show={show}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add a user</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="row py-3">
+                            <div className="col star">
+                                <input
+                                    type="text"
+                                    id="firstName"
+                                    name="firstName"
+                                    value={data.firstName}
+                                    className="form-control"
+                                    placeholder="Enter your first name"
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <div className="form-group pb-3">
+                            <input
+                                type="text"
+                                id="lastName"
+                                name="lastName"
+                                value={data.lastName}
+                                className="form-control"
+                                placeholder="Enter your last name"
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <input
+                                type="number"
+                                name="Age"
+                                value={data.Age}
+                                className="form-control"
+                                id="Age"
+                                placeholder="Your Age"
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={HandleClose}>Close</Button>
+                            <Button
+                                className="btn btn-primary"
+                                id="sign-up"
+                                onClick={submitForm}
+                            >
+                                Add
+                            </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
+
             <table className="table table-bordered">
                 <thead>
                     <tr>

@@ -1,5 +1,7 @@
 import React from 'react';
 import './Section.css';
+import { Modal, Button, Form } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 
 const Section = () => {
     return (

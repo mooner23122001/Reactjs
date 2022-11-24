@@ -1,5 +1,7 @@
 import './App.css';
 import { Routes, Route, Link } from 'react-router-dom';
+import { Modal, Button, Form } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 import HomePage from './ShowWeb';
 import Table from './my-web/Table'
 import Test from './my-web/Test';
