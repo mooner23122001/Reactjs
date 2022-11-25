@@ -626,7 +626,11 @@ let arr = [
 ];
 const Table = () => {
     const [user, setUser] = useState(arr);
-    const [data, setData] = useState({ firstName: "", lastName: "", Age: null });
+    const [data, setData] = useState({ firstName: "", lastName: "", Age: "" });
+    const [show, setShow] = useState(false);
+    const [action, setAction] = useState("");
+    const [index, setIndex] = useState(null);
+
     const handleChange = (event) => {
         setData({ ...data, [event.target.name]: event.target.value });
     };
@@ -648,27 +652,42 @@ const Table = () => {
             </tr>
         );
     });
-    function submitForm(e) {
+    const submitForm = (e) => {
         e.preventDefault();
-        setUser([data, ...user]);
-        setShow(false)
-    }
-    function deleteUser(e) {
-        user.splice(e-1, 1);
+        if (action == "Add") {
+            setUser([data, ...user]);
+            setShow(false);
+            console.log(user)
+        } else {
+            user[index] = data;
+            setUser([...user]);
+            setShow(false);
+            console.log(user)
+        }
+    };
+    const deleteUser = (e) => {
+        user.splice(e - 1, 1);
         setUser([...user]);
-    }
-    const [show, setShow] = useState(false)
+    };
     const HandleClose = () => {
-        setShow(false)
-    }
+        setShow(false);
+    };
     const handleEdit = (e) => {
         setShow(true);
-        setData({firstName:user[e-1].firstName , lastName:user[e-1].lastName, Age:user[e-1].age})
-        console.log(user[e-1])
-    }
+        setData({
+            firstName: user[e - 1].firstName,
+            lastName: user[e - 1].lastName,
+            Age: user[e - 1].age,
+        });
+        setAction((pre) => "Edit");
+        setIndex((pre) => e - 1);
+        console.log(user[e - 1]);
+    };
     const handleAdd = () => {
         setShow(true);
-    }
+        setAction((pre) => "Add");
+    };
+
     return (
         <div>
             <div>
@@ -678,7 +697,7 @@ const Table = () => {
                     </Button>
                 </div>
                 <Modal show={show}>
-                    <Modal.Header closeButton>
+                    <Modal.Header closeButton onClick={HandleClose}>
                         <Modal.Title>Add a user</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -722,14 +741,16 @@ const Table = () => {
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={HandleClose}>Close</Button>
-                            <Button
-                                className="btn btn-primary"
-                                id="sign-up"
-                                onClick={submitForm}
-                            >
-                                Add
-                            </Button>
+                        <Button variant="secondary" onClick={HandleClose}>
+                            Close
+                        </Button>
+                        <Button
+                            className="btn btn-primary"
+                            id="sign-up"
+                            onClick={submitForm}
+                        >
+                            Add
+                        </Button>
                     </Modal.Footer>
                 </Modal>
             </div>
