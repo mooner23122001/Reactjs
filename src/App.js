@@ -5,9 +5,10 @@ import "bootstrap/dist/css/bootstrap.css";
 import HomePage from './ShowWeb';
 import Table from './my-web/Table'
 import Test from './my-web/Test';
+import TableValidate from './my-web/Table/TableValidate';
 
 function App() {
-  const arr = ["Home", "Table", "Test"]
+  const arr = ["Home", "Table", "Test","TableValidate"]
   return (
     <div>
       <nav>
@@ -19,14 +20,17 @@ function App() {
               </li>
             );
           })} */}
-          <li className='list-group-item'>
+          <li className='list-group-item px-3'>
             <Link to="/">Home</Link>
           </li>
-          <li className='list-group-item'>
+          <li className='list-group-item px-3'>
             <Link to="/table">Table</Link>
           </li>
-          <li className='list-group-item'>
+          <li className='list-group-item px-3'>
             <Link to="/test">Test</Link>
+          </li>
+          <li className='list-group-item px-3'>
+            <Link to="/TableValidate">Table Validate</Link>
           </li>
         </ul>
 
@@ -35,6 +39,7 @@ function App() {
         <Route path='/' element={< HomePage />} />
         <Route path='/table' element={< Table />} />
         <Route path='/test' element={<Test />} />
+        <Route path='/TableValidate' element={<TableValidate/>} />
       </Routes>
     </div>
   );
