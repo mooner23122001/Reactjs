@@ -1,8 +1,6 @@
-import React, { useState, useForm } from 'react';
-import Menu from './Menu/Menu';
-import TableUser from './TableUser/TableUser';
-import UserModal from './Modal/UserModal';
-
+import React, { useState} from "react";
+import Menu from "./Menu/Menu";
+import TableUser from "./TableUser/TableUser";
 
 const TableValidate = () => {
     let arr = [
@@ -12,7 +10,7 @@ const TableValidate = () => {
             lastName: "Medhurst",
             age: 50,
             gender: "male",
-            phone: "63 791 675 8914",
+            phone: "637916758914",
         },
         {
             id: 2,
@@ -20,7 +18,7 @@ const TableValidate = () => {
             lastName: "Quigley",
             age: 28,
             gender: "male",
-            phone: "7 813 117 7139",
+            phone: "78131177139",
         },
         {
             id: 3,
@@ -28,7 +26,7 @@ const TableValidate = () => {
             lastName: "Hills",
             age: 38,
             gender: "male",
-            phone: "63 739 292 7942",
+            phone: "637392927942",
         },
         {
             id: 4,
@@ -36,7 +34,7 @@ const TableValidate = () => {
             lastName: "Cummerata",
             age: 49,
             gender: "male",
-            phone: "86 461 145 4186",
+            phone: "864611454186",
         },
         {
             id: 5,
@@ -44,7 +42,7 @@ const TableValidate = () => {
             lastName: "Schultz",
             age: 38,
             gender: "male",
-            phone: "372 285 771 1911",
+            phone: "3722857711911",
         },
         {
             id: 6,
@@ -52,7 +50,7 @@ const TableValidate = () => {
             lastName: "Reichert",
             age: 21,
             gender: "female",
-            phone: "351 527 735 3642",
+            phone: "3515277353642",
         },
         {
             id: 7,
@@ -60,7 +58,7 @@ const TableValidate = () => {
             lastName: "Abbott",
             age: 31,
             gender: "female",
-            phone: "62 640 802 7111",
+            phone: "626408027111",
         },
         {
             id: 8,
@@ -68,7 +66,7 @@ const TableValidate = () => {
             lastName: "Mueller",
             age: 29,
             gender: "male",
-            phone: "86 946 297 2275",
+            phone: "869462972275",
         },
         {
             id: 9,
@@ -76,7 +74,7 @@ const TableValidate = () => {
             lastName: "Corkery",
             age: 22,
             gender: "male",
-            phone: "86 356 590 9727",
+            phone: "863565909727",
         },
         {
             id: 10,
@@ -84,15 +82,65 @@ const TableValidate = () => {
             lastName: "Price",
             age: 37,
             gender: "female",
-            phone: "60 184 408 0824",
+            phone: "601844080824",
         },
     ];
+    const [user, setUser] = useState(arr);
     const [show, setShow] = useState(false);
+    const [data, setData] = useState({});
+    const [action, setAction] = useState("");
+    const [index, setIndex] = useState(null);
+    const handleShow = () => {
+        setAction("Add");
+        setData({
+            firstName: "",
+            lastName: "",
+            age: "",
+            phone: "",
+        });
+        setShow((pre) => !pre);
+    };
+    const handleEdit = () => {
+        setAction("Edit");
+        setData(user[index]);
+        setShow(true);
+    };
+    const handleDelete = () => {
+        user.splice(index, 1);
+        setUser([...user]);
+    };
+
+    const updateUser = (data) => {
+        if (action == "Add") {
+            setUser([data, ...user]);
+            setShow(false);
+        }
+        if (action == "Edit") {
+            user[index] = data;
+            setUser([...user]);
+            setShow(false);
+        }
+    }
+
+    const handleActive = (e) => {
+        if (index === e) {
+            setIndex(null);
+        } else {
+            setIndex(e);
+        }
+    };
     return (
-        <div className='mx-5'>
-            <Menu show={show} setShow={setShow}></Menu>
-            <TableUser></TableUser>
-            <UserModal></UserModal>
+        <div className="mx-5">
+            <Menu
+                index={index}
+                show={show}
+                user={data}
+                onAdd={handleShow}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                onSave={updateUser}
+            ></Menu>
+            <TableUser user={user} index={index} onClick={handleActive}></TableUser>
         </div>
     );
 };

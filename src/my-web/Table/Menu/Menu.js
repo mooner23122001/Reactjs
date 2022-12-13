@@ -1,31 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
-import UserModal from '../Modal/UserModal';
+import UserModal from "../Modal/UserModal";
 
 const Menu = (props) => {
-    const handleAdd = () =>{
-        props.setShow(true)
-    }
     return (
         <div>
-            <div className='d-flex'>
+            <div className="d-flex">
                 <div className="my-3">
-                    <Button variant="primary" onClick={handleAdd}>
+                    <Button variant="primary" onClick={props.onAdd}>
                         Add
                     </Button>
-                    <UserModal show = {props.show}/>
                 </div>
                 <div className="my-3 px-2">
-                    <Button className="border-0">
+                    <Button
+                        className="border-0"
+                        onClick={props.onEdit}
+                        disabled={props.index == null ? true : false}
+                    >
                         Edit
                     </Button>
                 </div>
                 <div className="my-3">
-                    <Button className="border-0">
+                    <Button
+                        className="border-0"
+                        onClick={props.onDelete}
+                        disabled={props.index == null ? true : false}
+                    >
                         Delete
                     </Button>
                 </div>
+                <UserModal
+                    user={props.user}
+                    show={props.show}
+                    closeModal={props.onAdd}
+                    onSave={props.onSave}
+                />
             </div>
         </div>
     );
