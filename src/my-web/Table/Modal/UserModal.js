@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Modal, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
@@ -10,6 +10,8 @@ const UserModal = (props) => {
         handleSubmit,
         formState: { errors },
     } = useForm();
+    // const [data, setData] = useState(props.user);
+    // setData(getValues());
     for (const [key, value] of Object.entries(props.user)) {
         setValue(key, value)
     }
@@ -32,7 +34,13 @@ const UserModal = (props) => {
                                 // defaultValue={props.user.firstName}
                                 className="form-control"
                                 placeholder="Enter your first name"
-                                {...register("firstName", { required: true, maxLength: 15 })}
+                                {...register("firstName", {
+                                    required: true,
+                                    maxLength: 15,
+                                    onChange: (e) => {
+                                        props.clickEdit(e);
+                                    },
+                                })}
                             />
                         </div>
                     </div>
@@ -47,7 +55,13 @@ const UserModal = (props) => {
                             // defaultValue={props.user.lastName}
                             className="form-control"
                             placeholder="Enter your last name"
-                            {...register("lastName", { required: true, maxLength: 15 })}
+                            {...register("lastName", {
+                                required: true,
+                                maxLength: 15,
+                                onChange: (e) => {
+                                    props.clickEdit(e);
+                                },
+                            })}
                         />
                     </div>
                     {errors.lastName && (
@@ -61,16 +75,26 @@ const UserModal = (props) => {
                             className="form-control"
                             id="age"
                             placeholder="Your age"
-                            {...register("age", { required: true, maxLength: 3 })}
+                            {...register("age", {
+                                required: true,
+                                maxLength: 3,
+                                onChange: (e) => {
+                                    props.clickEdit(e);
+                                },
+                            })}
                         />
-                        {errors.age && <p className="text-danger">Please enter your age</p>}
-
                     </div>
+                    {errors.age && <p className="text-danger">Please enter your age</p>}
                     <div className="form-group pb-3">
                         <select
                             className="form-select"
                             aria-label="Default select example"
-                            {...register("gender", { required: true })}
+                            {...register("gender", {
+                                required: true,
+                                onChange: (e) => {
+                                    props.clickEdit(e);
+                                },
+                            })}
                         >
                             <option value="">Choose gender</option>
                             <option value="male">Male</option>
@@ -86,7 +110,13 @@ const UserModal = (props) => {
                             // defaultValue={props.user.phone}
                             className="form-control"
                             placeholder="Enter your phone number"
-                            {...register("phone", { required: true, maxLength: 15 })}
+                            {...register("phone", {
+                                required: true,
+                                maxLength: 15,
+                                onChange: (e) => {
+                                    props.clickEdit(e);
+                                },
+                            })}
                         />
                     </div>
                     {errors.phone && (
@@ -102,7 +132,7 @@ const UserModal = (props) => {
                     </Button>
                 </Modal.Footer>
             </Form>
-        </Modal>
+        </Modal >
     );
 };
 

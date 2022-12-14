@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Menu from "./Menu/Menu";
 import TableUser from "./TableUser/TableUser";
 
@@ -91,18 +91,22 @@ const TableValidate = () => {
     const [action, setAction] = useState("");
     const [index, setIndex] = useState(null);
     const handleShow = () => {
-        setAction("Add");
         setData({
             firstName: "",
             lastName: "",
             age: "",
+            gender:"",
             phone: "",
         });
+        setAction("Add");
         setShow((pre) => !pre);
     };
+    const getData = (e) => {
+        setData({ ...data, [e.target.name]: e.target.value });
+    }
     const handleEdit = () => {
-        setAction("Edit");
         setData(user[index]);
+        setAction("Edit");
         setShow(true);
     };
     const handleDelete = () => {
@@ -111,11 +115,11 @@ const TableValidate = () => {
     };
 
     const updateUser = (data) => {
-        if (action == "Add") {
+        if (action === "Add") {
             setUser([data, ...user]);
             setShow(false);
         }
-        if (action == "Edit") {
+        if (action === "Edit") {
             user[index] = data;
             setUser([...user]);
             setShow(false);
@@ -139,6 +143,7 @@ const TableValidate = () => {
                 onEdit={handleEdit}
                 onDelete={handleDelete}
                 onSave={updateUser}
+                clickEdit={getData}
             ></Menu>
             <TableUser user={user} index={index} onClick={handleActive}></TableUser>
         </div>
